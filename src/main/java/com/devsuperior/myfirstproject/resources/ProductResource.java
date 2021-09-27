@@ -10,24 +10,24 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.devsuperior.myfirstproject.entities.Product;
-import com.devsuperior.myfirstproject.repositories.ProductRepository;
+import com.devsuperior.myfirstproject.services.ProductService;
 
 @RestController
 @RequestMapping(value = "/products")
 public class ProductResource {
 
 	@Autowired
-	private ProductRepository productRepository;
+	private ProductService productService;
 
 	@GetMapping
 	public ResponseEntity<List<Product>> findAll() {
-		List<Product> list = productRepository.findAll();
+		List<Product> list = productService.findAll();
 		return ResponseEntity.ok().body(list);
 	}
 
 	@GetMapping(value = "/{id}")
 	public ResponseEntity<Product> findById(@PathVariable Long id) {
-		Product obj = productRepository.findById(id).get();
+		Product obj = productService.findById(id);
 		return ResponseEntity.ok().body(obj);
 	}
 }
